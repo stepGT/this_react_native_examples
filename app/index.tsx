@@ -1,23 +1,14 @@
-import Greet from '../components/Greet';
-import { View, Alert, Button, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 //
 export default function Index() {
   return (
     <View style={style.container}>
-      <Button
-        title="Alert"
-        onPress={() =>
-          Alert.alert(
-            'Invalidate data!',
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam recusandae neque molestias laudantium nobis hic voluptate quidem voluptatibus porro odio, quia atque quam adipisci. Minus quas totam similique quae dicta.',
-            [
-              { text: 'Cancel', onPress: () => console.log('Cancel pressed!') },
-              { text: 'Ok', onPress: () => console.log('Ok pressed!') },
-            ],
-          )
-        }
-      />
-      <Greet name={'stepGT'} />
+      <View style={[style.box, style.lightblueBG]}>
+        <Text>Lightblue box</Text>
+      </View>
+      <View style={[style.box, style.lightgreenBG]}>
+        <Text>Lightgreen box</Text>
+      </View>
     </View>
   );
 }
@@ -27,5 +18,16 @@ const style = StyleSheet.create({
     flex: 1,
     backgroundColor: 'plum',
     padding: 60,
+  },
+  box: {
+    width: 100,
+    height: 100,
+    padding: 10,
+  },
+  lightblueBG: {
+    backgroundColor: 'lightblue',
+  },
+  lightgreenBG: {
+    backgroundColor: 'lightgreen',
   },
 });
