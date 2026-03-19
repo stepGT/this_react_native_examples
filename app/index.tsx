@@ -1,13 +1,9 @@
 import Greet from '../components/Greet';
-import { View, Alert, Button } from 'react-native';
+import { View, Alert, Button, StyleSheet } from 'react-native';
+//
 export default function Index() {
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: 'plum',
-        padding: 60,
-      }}>
+    <View style={style.container}>
       <Button
         title="Alert"
         onPress={() =>
@@ -25,3 +21,11 @@ export default function Index() {
     </View>
   );
 }
+//
+const style = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'plum',
+    padding: 60,
+  },
+});
