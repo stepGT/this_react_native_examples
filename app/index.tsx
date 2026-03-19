@@ -3,10 +3,10 @@ import { View, Text, StyleSheet } from 'react-native';
 export default function Index() {
   return (
     <View style={style.container}>
-      <View style={[style.box, style.lightblueBG]}>
+      <View style={[style.box, style.lightblueBG, style.boxShadow, style.androidShadow]}>
         <Text>Lightblue box</Text>
       </View>
-      <View style={[style.box, style.lightgreenBG]}>
+      <View style={[style.box, style.lightgreenBG, style.boxShadow, style.androidShadow]}>
         <Text>Lightgreen box</Text>
       </View>
     </View>
@@ -20,8 +20,8 @@ const style = StyleSheet.create({
     padding: 60,
   },
   box: {
-    width: 100,
-    height: 100,
+    width: 250,
+    height: 250,
     paddingHorizontal: 10,
     paddingVertical: 20,
     marginVertical: 10,
@@ -34,5 +34,17 @@ const style = StyleSheet.create({
   },
   lightgreenBG: {
     backgroundColor: 'lightgreen',
+  },
+  boxShadow: {
+    shadowColor: '#eeeeee',
+    shadowOffset: {
+      width: 6,
+      height: 6,
+    },
+    shadowOpacity: 0.6,
+    shadowRadius: 4,
+  },
+  androidShadow: {
+    elevation: 10,
   },
 });
