@@ -1,3 +1,4 @@
+import Greet from '../components/Greet';
 import { View, Alert, Button } from 'react-native';
 export default function Index() {
   return (
@@ -20,6 +21,7 @@ export default function Index() {
           )
         }
       />
+      <Greet name={'stepGT'} />
     </View>
   );
 }
