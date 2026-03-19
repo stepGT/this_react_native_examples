@@ -1,4 +1,4 @@
-import { View, StatusBar } from 'react-native';
+import { View, StatusBar, ActivityIndicator } from 'react-native';
 export default function Index() {
   return (
     <View
@@ -7,7 +7,7 @@ export default function Index() {
         backgroundColor: 'plum',
         padding: 60,
       }}>
-      <StatusBar barStyle="dark-content" backgroundColor="lightgreen" />
+      <ActivityIndicator animating={true} color={'midnightblue'} size={'large'} />
     </View>
   );
 }
