@@ -3,6 +3,15 @@ import { View, Text, StyleSheet } from 'react-native';
 export default function Index() {
   return (
     <View style={style.container}>
+      <View style={style.darkMode}>
+        <Text style={style.darkModeText}>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi ratione numquam
+          accusantium! Odit commodi at, repellat accusantium laudantium laboriosam perferendis animi
+          <Text style={style.boldText}>
+            corrupti iusto autem ea accusamus saepe porro magni facilis?
+          </Text>
+        </Text>
+      </View>
       <View style={[style.box, style.lightblueBG, style.boxShadow, style.androidShadow]}>
         <Text>Lightblue box</Text>
       </View>
@@ -18,6 +27,15 @@ const style = StyleSheet.create({
     flex: 1,
     backgroundColor: 'plum',
     padding: 60,
+  },
+  darkMode: {
+    backgroundColor: '#000000',
+  },
+  darkModeText: {
+    color: '#ffffff',
+  },
+  boldText: {
+    fontWeight: 'bold',
   },
   box: {
     width: 250,
