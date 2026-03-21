@@ -14,7 +14,8 @@ export default function Index() {
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
+    justifyContent: 'center',
     borderWidth: 6,
     borderColor: 'red',
     marginTop: 64,
