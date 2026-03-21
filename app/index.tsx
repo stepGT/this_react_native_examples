@@ -17,9 +17,10 @@ export default function Index() {
 //
 const style = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap-reverse',
+    //flex: 1,
+    height: 300,
+    flexWrap: 'wrap',
+    alignContent: 'space-around',
     borderWidth: 6,
     borderColor: 'red',
     marginTop: 64,
