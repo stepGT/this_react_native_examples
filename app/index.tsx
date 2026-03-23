@@ -4,13 +4,8 @@ import { View, StyleSheet } from 'react-native';
 export default function Index() {
   return (
     <View style={style.container}>
-      <Box style={{ backgroundColor: '#89e890' }}>Box 1</Box>
-      <Box style={{ backgroundColor: '#919062' }}>Box 2</Box>
-      <Box style={{ backgroundColor: '#23062c', flexBasis: 140, flex: 1 }}>Box 3</Box>
-      <Box style={{ backgroundColor: '#301a6d', height: 140, flex: 1 }}>Box 4</Box>
-      <Box style={{ backgroundColor: '#c5c217' }}>Box 5</Box>
-      <Box style={{ backgroundColor: '#171418' }}>Box 6</Box>
-      <Box style={{ backgroundColor: '#b0a3b4' }}>Box 7</Box>
+      <Box style={{ backgroundColor: '#89e890', flexShrink: 1 }}>Box 1 shrink</Box>
+      <Box style={{ backgroundColor: '#919062', flexShrink: 2 }}>Box 2 shrink</Box>
     </View>
   );
 }
@@ -18,6 +13,9 @@ export default function Index() {
 const style = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    width: 300,
     borderWidth: 6,
     borderColor: 'red',
     marginTop: 64,
