@@ -1,27 +1,14 @@
-import Box from '@/components/Box';
 import { View, StyleSheet } from 'react-native';
 //
 export default function Index() {
-  return (
-    <View style={style.container}>
-      <Box style={{ backgroundColor: '#89e890', top: 75, left: 75 }}>Box 1</Box>
-      <Box style={{ backgroundColor: '#919062' }}>Box 2</Box>
-      <Box style={{ backgroundColor: '#3d5d88' }}>Box 3</Box>
-      <Box style={{ backgroundColor: '#4b2144', position: 'absolute', top: 100, left: 100 }}>
-        Box 4
-      </Box>
-      <Box style={{ backgroundColor: '#ca0e2d' }}>Box 5</Box>
-      <Box style={{ backgroundColor: '#eeec66' }}>Box 6</Box>
-      <Box style={{ backgroundColor: '#26da26' }}>Box 7</Box>
-    </View>
-  );
+  return <View style={style.container}></View>;
 }
 //
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    borderWidth: 6,
-    borderColor: 'red',
-    marginTop: 64,
+    backgroundColor: 'plum',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
