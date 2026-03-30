@@ -1,4 +1,5 @@
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import CustomButton from '@/components/CustomButton.android';
+import { View, Text, StyleSheet, SafeAreaView, Platform } from 'react-native';
 //
 export default function Index() {
   return (
@@ -6,6 +7,7 @@ export default function Index() {
       <View style={styles.container}>
         <View style={styles.box}>
           <Text style={styles.text}>Welcome!</Text>
+          <CustomButton onPress={(e) => console.log(e)} title='Press me'></CustomButton>
         </View>
       </View>
     </SafeAreaView>
@@ -20,12 +22,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'plum',
+    paddingTop: Platform.OS === 'android' ? 25 : 0,
   },
   box: {
     padding: 20,
   },
   text: {
-    fontSize: 24,
+    ...Platform.select({
+      ios: {},
+      android: {
+        color: 'red',
+        fontSize: 30,
+        fontStyle: 'italic',
+      },
+    }),
     fontWeight: 'bold',
     textAlign: 'center',
   },
