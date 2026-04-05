@@ -7,7 +7,7 @@ export default function Index() {
       <View style={styles.container}>
         <View style={styles.box}>
           <Text style={styles.text}>Welcome!</Text>
-          <CustomButton onPress={(e) => console.log(e)} title='Press me'></CustomButton>
+          <CustomButton onPress={(e: any) => console.log(e)} title='Press me'></CustomButton>
         </View>
       </View>
     </SafeAreaView>
