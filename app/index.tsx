@@ -1,26 +1,37 @@
-import { View, Text, StyleSheet, StatusBar, FlatList } from 'react-native';
+import { View, Text, StyleSheet, StatusBar, SectionList } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import pokemonList from '../data.json';
+import groupedPokemonList from '../grouped-data.json';
 //
 export default function Index() {
   return (
     <SafeAreaProvider style={styles.container}>
       <View style={styles.scrollView}>
-        <FlatList
-          keyExtractor={(item) => item.id.toString()}
-          data={pokemonList}
+        <SectionList
+          sections={groupedPokemonList}
           renderItem={({ item }) => {
             return (
               <View style={styles.card}>
-                <Text style={styles.cardText}>{item.type}</Text>
-                <Text style={styles.cardText}>{item.name}</Text>
+                <Text style={styles.cardText}>{item}</Text>
               </View>
             );
           }}
-          ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
-          ListEmptyComponent={<Text>No Items Found</Text>}
-          ListHeaderComponent={<Text style={styles.headerText}>Pokemon List</Text>}
-          ListFooterComponent={<Text style={styles.footerText}>End of list</Text>}
+          renderSectionHeader={({ section }) => (
+            <Text style={styles.sectionHeaderText}>{section.type}</Text>
+          )}
+          ItemSeparatorComponent={() => (
+            <View
+              style={{
+                height: 16,
+              }}
+            />
+          )}
+          SectionSeparatorComponent={() => (
+            <View
+              style={{
+                height: 16,
+              }}
+            />
+          )}
         />
       </View>
     </SafeAreaProvider>
@@ -55,5 +66,10 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: 'center',
     marginTop: 12,
+  },
+  sectionHeaderText: {
+    backgroundColor: '#FFFFFF',
+    fontSize: 24,
+    fontWeight: 'bold',
   },
 });
