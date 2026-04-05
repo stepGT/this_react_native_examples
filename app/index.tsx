@@ -18,6 +18,9 @@ export default function Index() {
             );
           }}
           ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
+          ListEmptyComponent={<Text>No Items Found</Text>}
+          ListHeaderComponent={<Text style={styles.headerText}>Pokemon List</Text>}
+          ListFooterComponent={<Text style={styles.footerText}>End of list</Text>}
         />
       </View>
     </SafeAreaProvider>
@@ -42,5 +45,15 @@ const styles = StyleSheet.create({
   },
   cardText: {
     fontSize: 30,
+  },
+  headerText: {
+    fontSize: 24,
+    textAlign: 'center',
+    marginBottom: 12,
+  },
+  footerText: {
+    fontSize: 24,
+    textAlign: 'center',
+    marginTop: 12,
   },
 });
