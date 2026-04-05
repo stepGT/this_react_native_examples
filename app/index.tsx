@@ -17,6 +17,7 @@ export default function Index() {
               </View>
             );
           }}
+          ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
         />
       </View>
     </SafeAreaProvider>
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 8,
     borderWidth: 1,
-    marginBottom: 16,
+    //marginBottom: 16,
   },
   cardText: {
     fontSize: 30,
