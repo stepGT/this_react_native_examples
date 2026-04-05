@@ -1,42 +1,41 @@
-import CustomButton from '@/components/CustomButton.android';
-import { View, Text, StyleSheet, SafeAreaView, Platform } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, StatusBar } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import pokemonList from '../data.json';
 //
 export default function Index() {
   return (
-    <SafeAreaView style={styles.safeContainer}>
-      <View style={styles.container}>
-        <View style={styles.box}>
-          <Text style={styles.text}>Welcome!</Text>
-          <CustomButton onPress={(e: any) => console.log(e)} title='Press me'></CustomButton>
-        </View>
-      </View>
-    </SafeAreaView>
+    <SafeAreaProvider style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        {pokemonList.map((pokemon) => {
+          return (
+            <View style={styles.card} key={pokemon.id}>
+              <Text style={styles.cardText}>{pokemon.type}</Text>
+              <Text style={styles.cardText}>{pokemon.name}</Text>
+            </View>
+          );
+        })}
+      </ScrollView>
+    </SafeAreaProvider>
   );
 }
 //
 const styles = StyleSheet.create({
-  safeContainer: {
-    flex: 1,
-    backgroundColor: 'plum',
-  },
   container: {
     flex: 1,
-    backgroundColor: 'plum',
-    paddingTop: Platform.OS === 'android' ? 25 : 0,
+    backgroundColor: '#f5f5f5',
+    paddingTop: StatusBar.currentHeight,
   },
-  box: {
-    padding: 20,
+  scrollView: {
+    paddingHorizontal: 16,
   },
-  text: {
-    ...Platform.select({
-      ios: {},
-      android: {
-        color: 'red',
-        fontSize: 30,
-        fontStyle: 'italic',
-      },
-    }),
-    fontWeight: 'bold',
-    textAlign: 'center',
+  card: {
+    backgroundColor: '#FFFFFF',
+    padding: 16,
+    borderRadius: 8,
+    borderWidth: 1,
+    marginBottom: 16,
+  },
+  cardText: {
+    fontSize: 30,
   },
 });
