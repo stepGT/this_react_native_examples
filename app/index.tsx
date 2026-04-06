@@ -12,13 +12,14 @@ export interface Post {
 export default function Index() {
   const [postList, setPostList] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   //
   const fetchData = async (limit = 10) => {
     try {
       const response = await fetch(`https://jsonplaceholder.typicode.com/posts?_limit=${limit}`);
       const data = await response.json();
       setPostList(data);
-      setIsLoading(true);
+      setIsLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -27,6 +28,12 @@ export default function Index() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleRefresh = () => {
+    setRefreshing(true);
+    fetchData(20);
+    setRefreshing(false);
+  };
 
   if (isLoading) {
     return (
@@ -53,6 +60,8 @@ export default function Index() {
           ListEmptyComponent={<Text>No Posts Found</Text>}
           ListHeaderComponent={<Text style={styles.headerText}>Post List</Text>}
           ListFooterComponent={<Text style={styles.footerText}>End of list</Text>}
+          refreshing={refreshing}
+          onRefresh={handleRefresh}
         />
       </View>
     </SafeAreaProvider>
