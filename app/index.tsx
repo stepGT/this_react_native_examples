@@ -1,125 +1,85 @@
-import { useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  Button,
-  Image,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
+import { useEffect, useState } from 'react';
+import { StyleSheet, StatusBar, View, Text, FlatList } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+//
 
-interface FormErrors {
-  username?: string;
-  password?: string;
+export interface Post {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
 }
 
-//
 export default function Index() {
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [errors, setErrors] = useState<FormErrors>({});
-
-  const validateForm = () => {
-    const newErrors: FormErrors = {};
-
-    if (!username.trim()) {
-      newErrors.username = 'Username is required';
-    }
-    if (!password) {
-      newErrors.password = 'Password is required';
-    }
-
-    setErrors(newErrors);
-
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (): void => {
-    if (validateForm()) {
-      console.log('Submitted', { username, password });
-      setUsername('');
-      setPassword('');
-      setErrors({});
+  const [postList, setPostList] = useState<Post[]>([]);
+  //
+  const fetchData = async (limit = 10) => {
+    try {
+      const response = await fetch(`https://jsonplaceholder.typicode.com/posts?_limit=${limit}`);
+      const data = await response.json();
+      setPostList(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
     }
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
-    <KeyboardAvoidingView
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
-      behavior="position"
-      style={styles.container}>
-      <View style={styles.form}>
-        <Image
-          source={require('../assets/images/react-logo.png')}
-          style={{
-            width: 200,
-            height: 200,
-            alignSelf: 'center',
-            marginBottom: 50,
-          }}
+    <SafeAreaProvider style={styles.container}>
+      <View style={styles.listContainer}>
+        <FlatList
+          data={postList}
+          renderItem={({ item }) => (
+            <View style={styles.card}>
+              <Text style={styles.nameText}>{item.title}</Text>
+              <Text style={styles.typeText}>{item.body}</Text>
+            </View>
+          )}
+          keyExtractor={(item) => item.id.toString()}
+          ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
+          ListEmptyComponent={<Text>No Posts Found</Text>}
+          ListHeaderComponent={<Text style={styles.headerText}>Post List</Text>}
+          ListFooterComponent={<Text style={styles.footerText}>End of list</Text>}
         />
-        <Text style={styles.label}>Username</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your username"
-          value={username}
-          onChangeText={setUsername}
-        />
-        {errors.username ? <Text style={styles.errorText}>{errors.username}</Text> : null}
-        <Text style={styles.label}>Password</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
-
-        {errors.password ? <Text style={styles.errorText}>{errors.password}</Text> : null}
-        
-        <Button onPress={handleSubmit} title="Login" />
       </View>
-    </KeyboardAvoidingView>
+    </SafeAreaProvider>
   );
 }
 //
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: 20,
     backgroundColor: '#f5f5f5',
+    paddingTop: StatusBar.currentHeight,
   },
-  form: {
-    backgroundColor: '#ffffff',
-    padding: 20,
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+  listContainer: {
+    flex: 1,
+    paddingHorizontal: 16,
   },
-  label: {
-    fontSize: 16,
-    marginBottom: 5,
-    fontWeight: 'bold',
-  },
-  input: {
-    height: 40,
-    borderColor: '#ddd',
+  card: {
+    backgroundColor: '#FFFFFF',
+    padding: 16,
+    borderRadius: 8,
     borderWidth: 1,
-    marginBottom: 15,
-    padding: 10,
-    borderRadius: 5,
   },
-  errorText: {
-    color: 'red',
-    marginBottom: 10,
+  nameText: {
+    fontSize: 30,
+  },
+  typeText: {
+    fontSize: 24,
+    color: '#666666',
+  },
+  headerText: {
+    fontSize: 24,
+    textAlign: 'center',
+    marginBottom: 12,
+  },
+  footerText: {
+    fontSize: 24,
+    textAlign: 'center',
+    marginTop: 12,
   },
 });
