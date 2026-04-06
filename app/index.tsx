@@ -1,62 +1,65 @@
-import React, { useState } from 'react';
-import { StatusBar, StyleSheet, TextInput, Text, Switch, View } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { useState } from 'react';
+import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 //
 export default function Index() {
   const [username, setUsername] = useState('');
-  const [isDark, setIsDark] = useState(false);
-  console.log(isDark);
+  const [password, setPassword] = useState('');
   return (
-    <SafeAreaProvider style={styles.container}>
-      <TextInput
-        style={[styles.input, styles.multilineText]}
-        placeholder="Enter your username"
-        value={username}
-        onChangeText={setUsername}
-        //secureTextEntry
-        keyboardType="numeric"
-        autoCorrect={true}
-        autoCapitalize="words"
-      />
-      <TextInput style={styles.input} placeholder="Enter your username" multiline />
-      <Text style={styles.text}>My name is {username}</Text>
-      <View style={styles.switchContainer}>
-        <Text style={styles.text}>Dark mode</Text>
-        <Switch
-          value={isDark}
-          onValueChange={() => setIsDark((prev) => !prev)}
-          trackColor={{ false: '#767577', true: 'lightblue' }}
-          thumbColor="#f4f3f4"
+    <View style={styles.container}>
+      <View style={styles.form}>
+        <Text style={styles.label}>Username</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter your username"
+          value={username}
+          onChangeText={setUsername}
         />
+
+        <Text style={styles.label}>Password</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter your password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+        <Button title="Login" onPress={() => {}} />
       </View>
-    </SafeAreaProvider>
+    </View>
   );
 }
 //
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    paddingTop: StatusBar.currentHeight,
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+    backgroundColor: '#f5f5f5',
+  },
+  form: {
+    backgroundColor: '#ffffff',
+    padding: 20,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  label: {
+    fontSize: 16,
+    marginBottom: 5,
+    fontWeight: 'bold',
   },
   input: {
     height: 40,
-    margin: 12,
-    padding: 10,
+    borderColor: '#ddd',
     borderWidth: 1,
-  },
-  text: {
-    fontSize: 30,
+    marginBottom: 15,
     padding: 10,
-  },
-  multilineText: {
-    minHeight: 100,
-    textAlignVertical: 'top',
-  },
-  switchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 10,
+    borderRadius: 5,
   },
 });
