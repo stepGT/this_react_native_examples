@@ -1,39 +1,18 @@
-import { View, Text, StyleSheet, StatusBar, SectionList } from 'react-native';
+import React, { useState } from 'react';
+import { StatusBar, StyleSheet, TextInput, Text } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import groupedPokemonList from '../grouped-data.json';
 //
 export default function Index() {
+  const [username, setUsername] = useState('');
   return (
     <SafeAreaProvider style={styles.container}>
-      <View style={styles.scrollView}>
-        <SectionList
-          sections={groupedPokemonList}
-          renderItem={({ item }) => {
-            return (
-              <View style={styles.card}>
-                <Text style={styles.cardText}>{item}</Text>
-              </View>
-            );
-          }}
-          renderSectionHeader={({ section }) => (
-            <Text style={styles.sectionHeaderText}>{section.type}</Text>
-          )}
-          ItemSeparatorComponent={() => (
-            <View
-              style={{
-                height: 16,
-              }}
-            />
-          )}
-          SectionSeparatorComponent={() => (
-            <View
-              style={{
-                height: 16,
-              }}
-            />
-          )}
-        />
-      </View>
+      <TextInput
+        style={styles.input}
+        placeholder="Enter your username"
+        value={username}
+        onChangeText={setUsername}
+      />
+      <Text style={styles.text}>My name is {username}</Text>
     </SafeAreaProvider>
   );
 }
@@ -41,35 +20,17 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#fff',
     paddingTop: StatusBar.currentHeight,
   },
-  scrollView: {
-    paddingHorizontal: 16,
-  },
-  card: {
-    backgroundColor: '#FFFFFF',
-    padding: 16,
-    borderRadius: 8,
+  input: {
+    height: 40,
+    margin: 12,
+    padding: 10,
     borderWidth: 1,
-    //marginBottom: 16,
   },
-  cardText: {
+  text: {
     fontSize: 30,
-  },
-  headerText: {
-    fontSize: 24,
-    textAlign: 'center',
-    marginBottom: 12,
-  },
-  footerText: {
-    fontSize: 24,
-    textAlign: 'center',
-    marginTop: 12,
-  },
-  sectionHeaderText: {
-    backgroundColor: '#FFFFFF',
-    fontSize: 24,
-    fontWeight: 'bold',
+    padding: 10,
   },
 });
