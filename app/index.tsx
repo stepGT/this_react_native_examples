@@ -11,6 +11,10 @@ export default function Index() {
         placeholder="Enter your username"
         value={username}
         onChangeText={setUsername}
+        //secureTextEntry
+        keyboardType="numeric"
+        autoCorrect={true}
+        autoCapitalize="words"
       />
       <Text style={styles.text}>My name is {username}</Text>
     </SafeAreaProvider>
