@@ -7,7 +7,7 @@ export default function Index() {
   return (
     <SafeAreaProvider style={styles.container}>
       <TextInput
-        style={styles.input}
+        style={[styles.input, styles.multilineText]}
         placeholder="Enter your username"
         value={username}
         onChangeText={setUsername}
@@ -16,6 +16,7 @@ export default function Index() {
         autoCorrect={true}
         autoCapitalize="words"
       />
+      <TextInput style={styles.input} placeholder="Enter your username" multiline />
       <Text style={styles.text}>My name is {username}</Text>
     </SafeAreaProvider>
   );
@@ -36,5 +37,9 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 30,
     padding: 10,
+  },
+  multilineText: {
+    minHeight: 100,
+    textAlignVertical: 'top',
   },
 });
