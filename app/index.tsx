@@ -9,10 +9,42 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
+
+interface FormErrors {
+  username?: string;
+  password?: string;
+}
+
 //
 export default function Index() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [errors, setErrors] = useState<FormErrors>({});
+
+  const validateForm = () => {
+    const newErrors: FormErrors = {};
+
+    if (!username.trim()) {
+      newErrors.username = 'Username is required';
+    }
+    if (!password) {
+      newErrors.password = 'Password is required';
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (): void => {
+    if (validateForm()) {
+      console.log('Submitted', { username, password });
+      setUsername('');
+      setPassword('');
+      setErrors({});
+    }
+  };
+
   return (
     <KeyboardAvoidingView
       keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
@@ -20,10 +52,10 @@ export default function Index() {
       style={styles.container}>
       <View style={styles.form}>
         <Image
-          source={require('../assets/images/splash-icon.png')}
+          source={require('../assets/images/react-logo.png')}
           style={{
             width: 200,
-            height: 400,
+            height: 200,
             alignSelf: 'center',
             marginBottom: 50,
           }}
@@ -35,7 +67,7 @@ export default function Index() {
           value={username}
           onChangeText={setUsername}
         />
-
+        {errors.username ? <Text style={styles.errorText}>{errors.username}</Text> : null}
         <Text style={styles.label}>Password</Text>
         <TextInput
           style={styles.input}
@@ -44,7 +76,10 @@ export default function Index() {
           onChangeText={setPassword}
           secureTextEntry
         />
-        <Button title="Login" onPress={() => {}} />
+
+        {errors.password ? <Text style={styles.errorText}>{errors.password}</Text> : null}
+        
+        <Button onPress={handleSubmit} title="Login" />
       </View>
     </KeyboardAvoidingView>
   );
@@ -82,5 +117,9 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     padding: 10,
     borderRadius: 5,
+  },
+  errorText: {
+    color: 'red',
+    marginBottom: 10,
   },
 });
