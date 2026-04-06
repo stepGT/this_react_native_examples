@@ -85,8 +85,6 @@ export default function Index() {
     );
   }
 
-  console.log(postList);
-
   return (
     <SafeAreaProvider style={styles.container}>
       {error ? (
