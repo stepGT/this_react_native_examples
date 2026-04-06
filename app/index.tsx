@@ -1,12 +1,33 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Button,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 //
 export default function Index() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
+      behavior="position"
+      style={styles.container}>
       <View style={styles.form}>
+        <Image
+          source={require('../assets/images/splash-icon.png')}
+          style={{
+            width: 200,
+            height: 400,
+            alignSelf: 'center',
+            marginBottom: 50,
+          }}
+        />
         <Text style={styles.label}>Username</Text>
         <TextInput
           style={styles.input}
@@ -25,7 +46,7 @@ export default function Index() {
         />
         <Button title="Login" onPress={() => {}} />
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 //
