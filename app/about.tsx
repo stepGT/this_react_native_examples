@@ -1,14 +1,13 @@
-// app/index.tsx (Home Screen)
 import { View, Text, Button } from 'react-native';
 import { useRouter } from 'expo-router';
 
-export default function HomeScreen() {
+export default function AboutScreen() {
   const router = useRouter();
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home Screen</Text>
-      <Button title="Go to About" onPress={() => router.push('/about')} />
+      <Text>About Screen</Text>
+      <Button title="Go Back" onPress={() => router.back()} />
     </View>
   );
 }
