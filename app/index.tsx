@@ -25,6 +25,7 @@ export default function Index() {
   const [postTitle, setPostTitle] = useState('');
   const [postBody, setPostBody] = useState('');
   const [isPosting, setIsPosting] = useState(false);
+  const [error, setError] = useState('');
 
   const addPost = async () => {
     setIsPosting(true);
@@ -43,8 +44,10 @@ export default function Index() {
       setPostList([newPost, ...postList]);
       setPostTitle('');
       setPostBody('');
+      setError('');
     } catch (error) {
       console.error('Error adding new post:', error);
+      setError('Failed to add new post.');
     }
     setIsPosting(false);
   };
@@ -55,8 +58,11 @@ export default function Index() {
       const data = await response.json();
       setPostList(data);
       setIsLoading(false);
+      setError('');
     } catch (error) {
       console.error('Error fetching data:', error);
+      setIsLoading(false);
+      setError('Failed to fetch post list.');
     }
   };
 
@@ -79,49 +85,55 @@ export default function Index() {
     );
   }
 
-  console.log(postList)
+  console.log(postList);
 
   return (
     <SafeAreaProvider style={styles.container}>
-      <>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Post Title"
-            value={postTitle}
-            onChangeText={setPostTitle}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Post Body"
-            value={postBody}
-            onChangeText={setPostBody}
-          />
-          <Button
-            title={isPosting ? 'Adding...' : 'Add Post'}
-            onPress={addPost}
-            disabled={isPosting}
-          />
+      {error ? (
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>{error}</Text>
         </View>
-        <View style={styles.listContainer}>
-          <FlatList
-            data={postList}
-            renderItem={({ item }) => (
-              <View style={styles.card}>
-                <Text style={styles.nameText}>{item.title}</Text>
-                <Text style={styles.typeText}>{item.body}</Text>
-              </View>
-            )}
-            keyExtractor={(item) => item.id.toString()}
-            ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
-            ListEmptyComponent={<Text>No Posts Found</Text>}
-            ListHeaderComponent={<Text style={styles.headerText}>Post List</Text>}
-            ListFooterComponent={<Text style={styles.footerText}>End of list</Text>}
-            refreshing={refreshing}
-            onRefresh={handleRefresh}
-          />
-        </View>
-      </>
+      ) : (
+        <>
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Post Title"
+              value={postTitle}
+              onChangeText={setPostTitle}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Post Body"
+              value={postBody}
+              onChangeText={setPostBody}
+            />
+            <Button
+              title={isPosting ? 'Adding...' : 'Add Post'}
+              onPress={addPost}
+              disabled={isPosting}
+            />
+          </View>
+          <View style={styles.listContainer}>
+            <FlatList
+              data={postList}
+              renderItem={({ item }) => (
+                <View style={styles.card}>
+                  <Text style={styles.nameText}>{item.title}</Text>
+                  <Text style={styles.typeText}>{item.body}</Text>
+                </View>
+              )}
+              keyExtractor={(item) => item.id.toString()}
+              ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
+              ListEmptyComponent={<Text>No Posts Found</Text>}
+              ListHeaderComponent={<Text style={styles.headerText}>Post List</Text>}
+              ListFooterComponent={<Text style={styles.footerText}>End of list</Text>}
+              refreshing={refreshing}
+              onRefresh={handleRefresh}
+            />
+          </View>
+        </>
+      )}
     </SafeAreaProvider>
   );
 }
@@ -180,5 +192,18 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     padding: 8,
     borderRadius: 8,
+  },
+  errorContainer: {
+    backgroundColor: '#FFC0CB',
+    padding: 16,
+    borderRadius: 8,
+    borderWidth: 1,
+    margin: 16,
+    alignItems: 'center',
+  },
+  errorText: {
+    color: '#D8000C',
+    fontSize: 16,
+    textAlign: 'center',
   },
 });
